@@ -1,3 +1,4 @@
+import 'package:final_minor/notice.dart';
 import 'package:final_minor/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -93,14 +94,17 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(50)
               ),width: MediaQuery.of(context).size
                 .width,height: 40,
+                child: TextButton( onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=> notice()));
+                },
                 child: const Center(child: Text('Login',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 15),),)),
-
-              const SizedBox(height: 15,),
+              ),
+              //child: const SizedBox(height: 15,),
               Center(
                 child: InkWell(onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=> const SignUp())),
                   child: const Text.rich(TextSpan(children: [
                     TextSpan(text:"Don't have an account yet? Register",style: TextStyle(fontSize:12 )),
-                    TextSpan(text: 'here',style: TextStyle(fontSize: 12,color: Color(0xFFF9A826))),
+                    TextSpan(text: ' here',style: TextStyle(fontSize: 12,color: Color(0xFFF9A826))),
                   ])),
                 ),
               )
