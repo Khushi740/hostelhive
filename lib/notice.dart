@@ -17,12 +17,19 @@ String getCurrentDate() {
 
 
 class noticeScreen extends State<notice> {
+  final String recentNoticeTitle = "Recent Notice";
+  final String recentNoticeDescription = "This is a small description of the recent notice.";
    @override
    Widget build(BuildContext context) {
+     final screenWidth = MediaQuery.of(context).size.width;
+     final screenHeight = MediaQuery.of(context).size.height;
+     final paddingFromTop = screenHeight * 0.1;
+     final paddingFromSides = screenWidth * 0.1;
+     final cardWidth = screenWidth * 0.8;
      return Scaffold(
        appBar: AppBar(
          backgroundColor: Colors.white,
-         shadowColor: Colors.white,
+         elevation: 0,
          leading: IconButton(
                icon: const Icon(Icons.dehaze_outlined),
                color: Colors.black,
@@ -36,44 +43,69 @@ class noticeScreen extends State<notice> {
          ]
          ),
 
-       body: Padding(
-       padding: const EdgeInsets.all(50),
-     child: Container(
-           width: MediaQuery.of(context).size.width * 0.4,
-           height: 100,
-           decoration: BoxDecoration(
-             color: Colors.amber,
-             borderRadius: BorderRadius.circular(20),
+       body: Column(
+         children: [
+           Padding(
+           padding: EdgeInsets.only(
+             top: paddingFromTop,
+             left: paddingFromSides,
+             right: paddingFromSides,
            ),
-           child: Card(
-             shape: RoundedRectangleBorder(
-               borderRadius: BorderRadius.circular(20),
-             ),
-             child: Padding(
-               padding: const EdgeInsets.all(40),
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   Text(
-                     'Recent Notice',
-                     style: TextStyle(
-                       fontSize: 18,
-                       fontWeight: FontWeight.bold,
-                     ),
+     child: Container(
+               width: cardWidth,
+               height: 200,
+               decoration: BoxDecoration(
+                 color: Colors.amber,
+                 borderRadius: BorderRadius.circular(20),
+               ),
+               child: Card(
+                 shape: RoundedRectangleBorder(
+                   borderRadius: BorderRadius.circular(20),
+                 ),
+                 child: Padding(
+                   padding: const EdgeInsets.all(16),
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Text(
+                         recentNoticeTitle,
+                         style: TextStyle(
+                           fontSize: 18,
+                           fontWeight: FontWeight.bold,
+                         ),
+                       ),
+                       SizedBox(height: 50),
+                       Text(
+                         recentNoticeDescription,
+                         style: TextStyle(
+                           fontSize: 14,
+                         ),
+                       ),
+                     ],
                    ),
-                   SizedBox(height: 4),
-                   Text(
-                     'This is a small description of the recent notice.',
-                     style: TextStyle(
-                       fontSize: 14,
-                     ),
-                   ),
-                 ],
+                 ),
                ),
              ),
            ),
-         ),
+           SizedBox(height: 16),
+           Expanded(
+             child: ListView.builder(
+               itemCount: 5,
+               itemBuilder: (BuildContext context, int index) {
+                 index=1;
+                 return Card(
+                   margin: EdgeInsets.only(bottom: 16), // Add margin for spacing between cards
+                   child: ListTile(
+                     title: Text('Previous Notice $index'),
+                     subtitle: Text('Description of Previous Notice $index'),
+                   ),
+                 );
+               },
+             ),
+           ),
+         ],
        ),
+
 
        bottomNavigationBar: CurvedNavigationBar(
          backgroundColor: Colors.white,
