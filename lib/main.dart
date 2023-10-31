@@ -1,3 +1,7 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:final_minor/complaints.dart';
+import 'package:final_minor/navbar.dart';
+import 'package:final_minor/notice.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
@@ -20,8 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
 
-      home: const LoginPage(),
+      home: NavBar(),
     );
   }
 }
-

@@ -1,7 +1,6 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:final_minor/navbar.dart';
 
 class notice extends StatefulWidget {
   const notice({super.key});
@@ -14,7 +13,6 @@ String getCurrentDate() {
   final formattedDate = DateFormat('d MMMM').format(now); // Customize the date format as needed
   return formattedDate;
 }
-
 
 class noticeScreen extends State<notice> {
   final String recentNoticeTitle = "Recent Notice";
@@ -93,8 +91,9 @@ class noticeScreen extends State<notice> {
                itemCount: 5,
                itemBuilder: (BuildContext context, int index) {
                  index=1;
+                 index++;
                  return Card(
-                   margin: EdgeInsets.only(bottom: 16), // Add margin for spacing between cards
+                   margin: EdgeInsets.only(bottom: 16),
                    child: ListTile(
                      title: Text('Previous Notice $index'),
                      subtitle: Text('Description of Previous Notice $index'),
@@ -105,22 +104,6 @@ class noticeScreen extends State<notice> {
            ),
          ],
        ),
-
-
-       bottomNavigationBar: CurvedNavigationBar(
-         backgroundColor: Colors.white,
-         color: Colors.amberAccent,
-         animationDuration: Duration(milliseconds: 300),
-         items: <Widget>[
-           Icon(Icons.tips_and_updates, size: 30, color: Colors.black,),
-           Icon(Icons.rate_review, size: 30, color: Colors.black,),
-           Icon(Icons.settings, size: 30, color: Colors.black,),
-         ],
-         onTap: (index) {
-           //Handle button tap
-         },
-       ),
-       //body: Container(color: Colors.white),
      );
    }
 
