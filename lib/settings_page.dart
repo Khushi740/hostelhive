@@ -61,7 +61,7 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildSwitchRow(Text("Dark Mode", style: TextStyle(fontWeight:FontWeight.w200),) as String, dark),
+        buildSwitchRow("Dark Mode", dark),
         buildSwitchRow("Permissions", per),
         buildSwitchRow("Push Notifications", noti),
       ],
@@ -74,11 +74,11 @@ class _SettingsState extends State<Settings> {
       borderOnForeground: true,
       shape: RoundedRectangleBorder(side: BorderSide(color: Colors.amber), borderRadius: BorderRadius.circular(20)),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(8.0),
       child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(text),
+        Text(text, style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 17)),
         Switch(
           value: value,
           overlayColor: overlayColor,
