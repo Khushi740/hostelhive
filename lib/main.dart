@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
 
-      home: NavBar(),
+      home: LoginPage(),
     );
   }
 }

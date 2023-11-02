@@ -1,84 +1,83 @@
 import 'package:flutter/material.dart';
 
-class complaints extends StatefulWidget {
-  const complaints({super.key});
+class Complaints extends StatefulWidget {
+  const Complaints({Key? key}) : super(key: key);
 
   @override
-  State<complaints> createState() => complaintsScreen();
+  State<Complaints> createState() => ComplaintsScreenState();
 }
 
-class complaintsScreen extends State<complaints> {
+class ComplaintsScreenState extends State<Complaints> {
+  String? hostel;
+  String? category;
+  TextEditingController descriptionController = TextEditingController();
+
+  var hostelNumbers = ["A", "B", "C", "D"];
+  var categories = ["Carpentry", "Cleaning", "Electrical", "Plumbing"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Complaints"),
-    ),
-    body: ComplaintsForm(),
+        title: Text(
+          "Complaints",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.amberAccent,
+      ),
+      body: ComplaintsForm(),
     );
   }
 }
+
 class ComplaintsForm extends StatefulWidget {
   @override
   _ComplaintsFormState createState() => _ComplaintsFormState();
 }
 
 class _ComplaintsFormState extends State<ComplaintsForm> {
-  String selectedCategory = '';
-  String selectedSeverity = '';
-  String selectedPriority = '';
+  String? hostel;
+  String? category;
   TextEditingController descriptionController = TextEditingController();
+
+  var hostelNumbers = ["A", "B", "C", "D"];
+  var categories = ["Carpentry", "Cleaning", "Electrical", "Plumbing"];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DropdownButtonFormField<String>(
-          value: selectedCategory,
+        DropdownButton<String>(
+          value: hostel,
+          hint: Text("Select Hostel"),
+          onChanged: (newvalue) {
+            setState(() {
+              hostel = newvalue;
+            });
+          },
+          items: hostelNumbers.map((hcategory) {
+            return DropdownMenuItem<String>(
+              value: hcategory,
+              child: Text(hcategory),
+            );
+          }).toList(),
+        ),
+        SizedBox(height: 16),
+        DropdownButton<String>(
+          value: category,
           hint: Text("Select Category"),
-          items: ["Category 1", "Category 2", "Category 3"].map((category) {
-            return DropdownMenuItem(
-              value: category,
-              child: Text(category),
-            );
-          }).toList(),
-          onChanged: (value) {
+          onChanged: (newvalue) {
             setState(() {
-              selectedCategory = value ?? '';
+              category = newvalue;
             });
           },
-        ),
-        SizedBox(height: 16),
-        DropdownButtonFormField<String>(
-          value: selectedSeverity,
-          hint: Text("Select Severity"),
-          items: ["Low", "Medium", "High"].map((severity) {
-            return DropdownMenuItem(
-              value: severity,
-              child: Text(severity),
+          items: categories.map((ccategory) {
+            return DropdownMenuItem<String>(
+              value: ccategory,
+              child: Text(ccategory),
             );
           }).toList(),
-          onChanged: (value) {
-            setState(() {
-              selectedSeverity = value ?? '';
-            });
-          },
-        ),
-        SizedBox(height: 16),
-        DropdownButtonFormField<String>(
-          value: selectedPriority,
-          hint: Text("Select Priority"),
-          items: ["Low", "Medium", "High"].map((priority) {
-            return DropdownMenuItem(
-              value: priority,
-              child: Text(priority),
-            );
-          }).toList(),
-          onChanged: (value) {
-            setState(() {
-              selectedPriority = value ?? '';
-            });
-          },
         ),
         SizedBox(height: 16),
         TextFormField(
@@ -91,14 +90,17 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
         ),
         SizedBox(height: 16),
         ElevatedButton(
+
           onPressed: () {
             // Handle submission of the complaint form
             // You can access the selected values and description using the corresponding variables.
           },
-          child: Text("Submit"),
+          child: Text("Submit", style: TextStyle(color: Colors.black),),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.amber,
+          ),
         ),
       ],
     );
   }
 }
-

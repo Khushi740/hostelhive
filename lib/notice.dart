@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:final_minor/navbar.dart';
 
 class notice extends StatefulWidget {
   const notice({super.key});
@@ -37,15 +36,21 @@ class noticeScreen extends State<notice> {
          centerTitle: true,
          title: Text(getCurrentDate(), style: TextStyle(color: Colors.black),),
          actions: <Widget>[
-           IconButton(onPressed:(){}, icon: Icon(Icons.notifications_outlined), color: Colors.black,)
+           IconButton(onPressed:(){}, icon: Icon(Icons.notifications), color: Colors.black,)
          ]
          ),
 
        body: Column(
          children: [
+           SizedBox(height: 20,),
+           Container(
+             child: Text(
+               "Hello, Ishita!", style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.w500), textAlign: TextAlign.left,
+             ),
+           ),
            Padding(
            padding: EdgeInsets.only(
-             top: paddingFromTop,
+             top: 25,
              left: paddingFromSides,
              right: paddingFromSides,
            ),
@@ -91,7 +96,7 @@ class noticeScreen extends State<notice> {
                itemCount: 5,
                itemBuilder: (BuildContext context, int index) {
                  index=1;
-                 index++;
+
                  return Card(
                    margin: EdgeInsets.only(bottom: 16),
                    child: ListTile(

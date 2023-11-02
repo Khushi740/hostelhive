@@ -2,10 +2,10 @@ import 'package:final_minor/notice.dart';
 import 'package:final_minor/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-
 import 'package:flutter/material.dart';
-
 import 'Header.dart';
+import 'navbar.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -24,12 +24,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const  Color(0xFFF9A826),
+      backgroundColor: Colors.amberAccent,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return<Widget>[
             const SliverAppBar(
-              backgroundColor: Color(0xFFF9AB26),
+              backgroundColor:Colors.amber,
               expandedHeight: 200,
               floating: false,
               flexibleSpace: FlexibleSpaceBar(
@@ -90,12 +90,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               Container(decoration: BoxDecoration(
-                color: const Color(0xFFF9A826),
+                color: Colors.amber,
                 borderRadius: BorderRadius.circular(50)
               ),width: MediaQuery.of(context).size
                 .width,height: 40,
                 child: TextButton( onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (_)=> notice()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=> NavBar()));
                 },
                 child: const Center(child: Text('Login',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 15),),)),
               ),
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: InkWell(onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=> const SignUp())),
                   child: const Text.rich(TextSpan(children: [
                     TextSpan(text:"Don't have an account yet? Register",style: TextStyle(fontSize:12 )),
-                    TextSpan(text: ' here',style: TextStyle(fontSize: 12,color: Color(0xFFF9A826))),
+                    TextSpan(text: ' here',style: TextStyle(fontSize: 12,color: Colors.amberAccent)),
                   ])),
                 ),
               )
@@ -117,12 +117,6 @@ class _LoginPageState extends State<LoginPage> {
                   //Container(color: Colors.grey,width: 75,height: 1,),
                 //],
              // ),
-
-
-
-
-
-
              ],
           ),
         ),

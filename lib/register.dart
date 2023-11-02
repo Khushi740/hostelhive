@@ -30,12 +30,12 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9A826),
+      backgroundColor: Colors.amber,
       body:NestedScrollView(headerSliverBuilder: (BuildContext context , bool innerBoxIsScrolled){
         return <Widget> [
           const SliverAppBar(
             toolbarHeight: 70, expandedHeight: 200,
-            backgroundColor:  Color(0xFFF9A826),
+            backgroundColor:  Colors.amber,
             floating: false,
             flexibleSpace: FlexibleSpaceBar(
               background: Header(title:'Register Yourself'),
@@ -94,22 +94,19 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(height: 30),
                 
                 Container(decoration: BoxDecoration(
-                  color: const Color(0xFFF9A826),
+                  color: Colors.amber,
                   borderRadius: BorderRadius.circular(50)
                 ),
                 width: MediaQuery.of(context).size.width,height: 40,
                   child: const Center(child: Text('Register',style: TextStyle(color: Colors.white,fontSize: 10,fontWeight: FontWeight.w700),),),
                 ),
-
-                
-
-
-
-
-              ],),
+              ],
+              ),
             ),
           ),
-        ),));
+        ),
+      )
+    );
   }
 }
 

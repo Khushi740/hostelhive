@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:final_minor/complaints.dart';
 import 'package:final_minor/notice.dart';
+import 'package:final_minor/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
@@ -15,7 +16,7 @@ class _NavBarState extends State<NavBar> {
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   var screens =[
-    notice(), complaints(),
+    notice(),Complaints(),SettingsPage(),
   ];
   @override
   Widget build(BuildContext context) {
