@@ -17,7 +17,7 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: Colors.amberAccent,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0), // Add padding from sides
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Settings(),
       ),
     );

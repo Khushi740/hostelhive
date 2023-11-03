@@ -41,12 +41,16 @@ class noticeScreen extends State<notice> {
          ),
 
        body: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
          children: [
            SizedBox(height: 20,),
            Container(
+             child: Padding(
+               padding: EdgeInsets.only(left: 16),
              child: Text(
-               "Hello, Ishita!", style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.w500), textAlign: TextAlign.left,
+               "Hello, Ishita!", style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.w500)
              ),
+           ),
            ),
            Padding(
            padding: EdgeInsets.only(
@@ -95,8 +99,7 @@ class noticeScreen extends State<notice> {
              child: ListView.builder(
                itemCount: 5,
                itemBuilder: (BuildContext context, int index) {
-                 index=1;
-
+                 index= index+1;
                  return Card(
                    margin: EdgeInsets.only(bottom: 16),
                    child: ListTile(
