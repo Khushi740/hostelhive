@@ -48,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
         child:Padding(
           padding: const   EdgeInsets.fromLTRB(15,40,15,20),
           child: SingleChildScrollView(
-            child: Column(crossAxisAlignment :CrossAxisAlignment.start,children:  [
+            child: Column(crossAxisAlignment :CrossAxisAlignment.start,
+              children:  [
               const Text('Email',style: TextStyle(fontWeight: FontWeight.w700,fontFamily:'Quicksand',fontSize: 18 )),
               const TextField(
                 decoration: InputDecoration(
@@ -91,22 +92,28 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               Container(decoration: BoxDecoration(
                 color: Colors.amber,
-                borderRadius: BorderRadius.circular(50)
-              ),width: MediaQuery.of(context).size
-                .width,height: 40,
-                child: TextButton( onPressed: (){
+                borderRadius: BorderRadius.circular(100)
+              ),
+                width: MediaQuery.of(context).size.width,height: 40,
+                child: ElevatedButton( onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (_)=> NavBar()));
                 },
-                child: const Center(child: Text('Login',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 15),),)),
+                  child: Text("Login", style: TextStyle(color: Colors.black),),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.amber,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                  ),
+                ),
               ),
-              //child: const SizedBox(height: 15,),
-              Center(
+              Padding(padding: EdgeInsets.all(30),
+             child: Center(
                 child: InkWell(onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=> const SignUp())),
                   child: const Text.rich(TextSpan(children: [
                     TextSpan(text:"Don't have an account yet? Register",style: TextStyle(fontSize:12 )),
-                    TextSpan(text: ' here',style: TextStyle(fontSize: 12,color: Colors.amberAccent)),
+                    TextSpan(text: ' here',style: TextStyle(fontSize: 12,color: Colors.amberAccent, fontWeight: FontWeight.w900)),
                   ])),
                 ),
+              ),
               )
 
              // Padding(padding: const EdgeInsets.symmetric(vertical: 20),

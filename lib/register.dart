@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'Header.dart';
+import 'navbar.dart';
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -92,13 +93,21 @@ class _SignUpState extends State<SignUp> {
                 ),
                   obscureText: confirmPassword),
                 const SizedBox(height: 30),
-                
+
                 Container(decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(50)
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(100)
                 ),
-                width: MediaQuery.of(context).size.width,height: 40,
-                  child: const Center(child: Text('Register',style: TextStyle(color: Colors.white,fontSize: 10,fontWeight: FontWeight.w700),),),
+                  width: MediaQuery.of(context).size.width,height: 40,
+                  child: ElevatedButton( onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=> NavBar()));
+                  },
+                    child: Text("Register", style: TextStyle(color: Colors.black),),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.amber,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                    ),
+                  ),
                 ),
               ],
               ),
