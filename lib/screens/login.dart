@@ -1,10 +1,16 @@
-import 'package:final_minor/notice.dart';
-import 'package:final_minor/register.dart';
+import 'package:final_minor/controller/loginController.dart';
+import 'package:final_minor/screens/notice.dart';
+import 'package:final_minor/screens/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'Header.dart';
 import 'navbar.dart';
+import '../controller/get-user-data-controller.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,7 +20,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool showPassword = false;
+  final loginController loginCon = Get.put(loginController());
+  final GetUserDataController getUserDataController =
+  Get.put(GetUserDataController());
+  TextEditingController userEmail = TextEditingController();
+  TextEditingController userPassword = TextEditingController();
+  bool showPassword = true;
   bool stayLoggedIn = false;
   void _toggle(){
     setState(() {
@@ -51,7 +62,8 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(crossAxisAlignment :CrossAxisAlignment.start,
               children:  [
               const Text('Email',style: TextStyle(fontWeight: FontWeight.w700,fontFamily:'Quicksand',fontSize: 18 )),
-              const TextField(
+                TextField(
+                  controller: userEmail,
                 decoration: InputDecoration(
                     hintText: 'Enter your email',
                     hintStyle: TextStyle(color: Colors.grey,fontSize: 12)
@@ -59,7 +71,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               const Text('Password',style: TextStyle(fontWeight: FontWeight.w700,fontFamily:'Quicksand',fontSize: 18 )),
-              TextField(decoration: InputDecoration(
+              TextField(
+                controller: userPassword,
+                decoration: InputDecoration(
                 hintText: 'Enter your password',
                 hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
                 suffixIcon: InkWell(onTap: _toggle,
@@ -95,8 +109,63 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(100)
               ),
                 width: MediaQuery.of(context).size.width,height: 40,
-                child: ElevatedButton( onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (_)=> NavBar()));
+                child: ElevatedButton( onPressed: (
+
+                    )async {
+                  String email = userEmail.text.trim();
+                  String password = userPassword.text.trim();
+
+                  if(email.isEmpty|| password.isEmpty){
+                    Fluttertoast.showToast(
+                      msg: "Enter all details",
+                      toastLength: Toast.LENGTH_SHORT, // Duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG
+                      gravity: ToastGravity.BOTTOM,    // Position: ToastGravity.TOP, ToastGravity.CENTER
+                      timeInSecForIosWeb: 1,         // Duration for iOS and web (in seconds)
+                      backgroundColor: Colors.orange,   // Background color
+                      textColor: Colors.white,       // Text color
+                      fontSize: 16.0,                // Font size
+                    );
+                  }else{
+                    UserCredential? userCredential = await loginCon.loginMethod(
+                        email,
+                        password);
+                    var userData = await getUserDataController
+                        .getUserData(userCredential!.user!.uid);
+                    if(userCredential != null){
+                      if(userCredential.user!.emailVerified){
+                        Fluttertoast.showToast(
+                          msg: "Login Successful",
+                          toastLength: Toast.LENGTH_SHORT, // Duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG
+                          gravity: ToastGravity.BOTTOM,    // Position: ToastGravity.TOP, ToastGravity.CENTER
+                          timeInSecForIosWeb: 1,         // Duration for iOS and web (in seconds)
+                          backgroundColor: Colors.orange,   // Background color
+                          textColor: Colors.white,       // Text color
+                          fontSize: 16.0,                // Font size
+                        );
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=> NavBar()));
+                      }else{
+                        Fluttertoast.showToast(
+                          msg: "Please  verify email",
+                          toastLength: Toast.LENGTH_SHORT, // Duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG
+                          gravity: ToastGravity.BOTTOM,    // Position: ToastGravity.TOP, ToastGravity.CENTER
+                          timeInSecForIosWeb: 1,         // Duration for iOS and web (in seconds)
+                          backgroundColor: Colors.orange,   // Background color
+                          textColor: Colors.white,       // Text color
+                          fontSize: 16.0,                // Font size
+                        );
+                      }
+                    }else{
+                      Fluttertoast.showToast(
+                        msg: "error occured! try again later",
+                        toastLength: Toast.LENGTH_SHORT, // Duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG
+                        gravity: ToastGravity.BOTTOM,    // Position: ToastGravity.TOP, ToastGravity.CENTER
+                        timeInSecForIosWeb: 1,         // Duration for iOS and web (in seconds)
+                        backgroundColor: Colors.orange,   // Background color
+                        textColor: Colors.white,       // Text color
+                        fontSize: 16.0,                // Font size
+                      );
+                    }
+                  }
                 },
                   child: Text("Login", style: TextStyle(color: Colors.black),),
                   style: ElevatedButton.styleFrom(
@@ -110,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: InkWell(onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=> const SignUp())),
                   child: const Text.rich(TextSpan(children: [
                     TextSpan(text:"Don't have an account yet? Register",style: TextStyle(fontSize:12 )),
-                    TextSpan(text: ' here',style: TextStyle(fontSize: 12,color: Colors.amberAccent, fontWeight: FontWeight.w900)),
+                    TextSpan(text: '   here',style: TextStyle(fontSize: 12,color: Colors.amberAccent, fontWeight: FontWeight.w900)),
                   ])),
                 ),
               ),

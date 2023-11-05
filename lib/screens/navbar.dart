@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:final_minor/complaints.dart';
-import 'package:final_minor/notice.dart';
-import 'package:final_minor/settings_page.dart';
+import 'package:final_minor/screens/complaints.dart';
+import 'package:final_minor/screens/notice.dart';
+import 'package:final_minor/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
