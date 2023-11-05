@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -47,8 +48,16 @@ class noticeScreen extends State<notice> {
            Container(
              child: Padding(
                padding: EdgeInsets.only(left: 16),
+             /*StreamBuilder<QuerySnapshot> (
+               stream : FirebaseFirestore.instance.collection('user').snapshots(),
+               builder: (context,snapshot){
+                 List<Row> userWidgets = [];
+
+               },
+             ),*/
+
              child: Text(
-               "Hello, Ishita!", style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.w500)
+               "Hello", style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.w500)
              ),
            ),
            ),

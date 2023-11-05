@@ -33,7 +33,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   bool dark = true;
-  bool per = true;
+  //bool per = true;
   bool noti = true;
 
   final MaterialStateProperty<Color?> trackColor = MaterialStateProperty.resolveWith<Color?>(
@@ -62,7 +62,7 @@ class _SettingsState extends State<Settings> {
     return Column(
       children: [
         buildSwitchRow("Dark Mode", dark),
-        buildSwitchRow("Permissions", per),
+        //buildSwitchRow("Permissions", per),
         buildSwitchRow("Push Notifications", noti),
       ],
     );
@@ -88,9 +88,9 @@ class _SettingsState extends State<Settings> {
             setState(() {
               if (text == "Dark Mode") {
                 dark = newValue;
-              } else if (text == "Permissions") {
+              } /*else if (text == "Permissions") {
                 per = newValue;
-              } else if (text == "Push Notifications") {
+              } */else if (text == "Push Notifications") {
                 noti = newValue;
               }
             });
