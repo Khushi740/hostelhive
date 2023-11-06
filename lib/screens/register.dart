@@ -36,6 +36,37 @@ class _SignUpState extends State<SignUp> {
   bool confirmPassword = false;
   bool stayLoggedIn = false;
 
+  String? validateMobile(String phone) {
+    String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(patttern);
+    if (phone.length == 0) {
+      return 'Please enter mobile number';
+    }
+    else if (!regExp.hasMatch(phone)) {
+      return 'Please enter valid mobile number';
+    }
+    return phone!.isNotEmpty && !regExp.hasMatch(phone)
+        ? 'Enter a valid phone number'
+        : null;
+  }
+
+  String? validateEmail(String? email) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    final regex = RegExp(pattern);
+
+    return email!.isNotEmpty && !regex.hasMatch(email)
+        ? 'Enter a valid email address'
+        : null;
+
+  }
+
+
   void _toggle(){
     setState(() {
       showPassword = !showPassword;
@@ -94,6 +125,7 @@ class _SignUpState extends State<SignUp> {
                       hintStyle: TextStyle(color: Colors.grey,fontSize: 12)
                   ),
                     autofillHints: [AutofillHints.email],
+                    validator: validateEmail,
                     /*validator: (email) {
                       if (email != null && EmailValidator.validate(email)) {
                         // The email is not null and is valid
@@ -165,7 +197,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 16.0,                // Font size
                       );
 
-                    } else if(EmailValidator.validate(email!)){
+                    } else if(validateEmail(email) != null){
                       Fluttertoast.showToast(
                         msg: "Please enter valid email",
                         toastLength: Toast.LENGTH_SHORT, // Duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG
@@ -176,9 +208,9 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 16.0,
                       );
 
-                    } /*else if(!validateField(phone)){
+                    } else if(validateMobile(phone) != null){
                       Fluttertoast.showToast(
-                        msg: "Please enter valid email",
+                        msg: "Please enter valid mobile number",
                         toastLength: Toast.LENGTH_SHORT, // Duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG
                         gravity: ToastGravity.BOTTOM,    // Position: ToastGravity.TOP, ToastGravity.CENTER
                         timeInSecForIosWeb: 1,         // Duration for iOS and web (in seconds)
@@ -187,7 +219,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 16.0,
                       );
 
-                    }*/
+                    }
                     else{
                       UserCredential? userCredential = await regController.regMethod(
                         name,

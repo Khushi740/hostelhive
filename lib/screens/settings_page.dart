@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'ThemeModal.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -32,11 +34,13 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool dark = true;
-  //bool per = true;
-  bool noti = true;
+  bool dark = false;
 
-  final MaterialStateProperty<Color?> trackColor = MaterialStateProperty.resolveWith<Color?>(
+  //bool per = true;
+  bool noti = false;
+
+  final MaterialStateProperty<Color?> trackColor = MaterialStateProperty
+      .resolveWith<Color?>(
         (Set<MaterialState> states) {
       if (states.contains(MaterialState.selected)) {
         return Colors.amber;
@@ -45,7 +49,8 @@ class _SettingsState extends State<Settings> {
     },
   );
 
-  final MaterialStateProperty<Color?> overlayColor = MaterialStateProperty.resolveWith<Color?>(
+  final MaterialStateProperty<Color?> overlayColor = MaterialStateProperty
+      .resolveWith<Color?>(
         (Set<MaterialState> states) {
       if (states.contains(MaterialState.selected)) {
         return Colors.amber.withOpacity(0.54);
@@ -61,44 +66,90 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildSwitchRow("Dark Mode", dark),
+        buildDarkModeSwitchRow("Dark Mode", dark),
         //buildSwitchRow("Permissions", per),
-        buildSwitchRow("Push Notifications", noti),
+        buildPushNotificationsSwitchRow("Push Notifications", noti),
       ],
     );
   }
 
-  Widget buildSwitchRow(String text, bool value) {
+  Widget buildDarkModeSwitchRow(String text, bool value) {
+    return Consumer(builder: (context, ThemeModal themeNotifier, child) {
+      return Card(
+        margin: EdgeInsets.symmetric(vertical: 8.0),
+        borderOnForeground: true,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.amber),
+            borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(text,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                      fontSize: 17)),
+              Switch(
+                value: themeNotifier.isDark ? true: false,
+                overlayColor: overlayColor,
+                trackColor: trackColor,
+                thumbColor: MaterialStateProperty.all(Colors.black),
+                onChanged: (bool newValue) {
+                  themeNotifier.isDark
+                  ? themeNotifier.isDark= false
+                  : themeNotifier.isDark= true;
+                  setState(() {
+                    if (text == "Dark Mode") {
+                      dark = newValue;
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    );
+  }
+
+  Widget buildPushNotificationsSwitchRow(String text, bool value) {
     return Card(
-    margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: EdgeInsets.symmetric(vertical: 8.0),
       borderOnForeground: true,
-      shape: RoundedRectangleBorder(side: BorderSide(color: Colors.amber), borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(
+          side: BorderSide(color: Colors.amber),
+          borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: EdgeInsets.all(8.0),
-      child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(text, style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: 17)),
-        Switch(
-          value: value,
-          overlayColor: overlayColor,
-          trackColor: trackColor,
-          thumbColor: MaterialStateProperty.all(Colors.black),
-          onChanged: (bool newValue) {
-            setState(() {
-              if (text == "Dark Mode") {
-                dark = newValue;
-              } /*else if (text == "Permissions") {
-                per = newValue;
-              } */else if (text == "Push Notifications") {
-                noti = newValue;
-              }
-            });
-          },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+                text,
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                    fontSize: 17)
+            ),
+            Switch(
+              value: value,
+              overlayColor: overlayColor,
+              trackColor: trackColor,
+              thumbColor: MaterialStateProperty.all(Colors.black),
+              onChanged: (bool newValue) {
+                setState(() {
+                  if (text == "Push Notifications") {
+                    noti = newValue;
+                  }
+                });
+              },
+            ),
+          ],
         ),
-      ],
-    ),
-    ),
+      ),
     );
   }
 }

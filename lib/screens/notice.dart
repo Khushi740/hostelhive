@@ -26,7 +26,7 @@ class noticeScreen extends State<notice> {
      final cardWidth = screenWidth * 0.8;
      return Scaffold(
        appBar: AppBar(
-         backgroundColor: Colors.white,
+         backgroundColor: Colors.amberAccent,
          elevation: 0,
          leading: IconButton(
                icon: const Icon(Icons.dehaze_outlined),
@@ -57,7 +57,7 @@ class noticeScreen extends State<notice> {
              ),*/
 
              child: Text(
-               "Hello", style: TextStyle(color: Colors.black,fontSize: 24, fontWeight: FontWeight.w500)
+               "Hello", style: TextStyle(color: Colors.grey[600],fontSize: 24, fontWeight: FontWeight.w500)
              ),
            ),
            ),

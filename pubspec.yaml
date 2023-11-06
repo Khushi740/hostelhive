@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  switcher_button: ^0.0.4
   flutter:
     sdk: flutter
 
@@ -35,7 +36,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-
+  provider:
+  shared_preferences:
   cloud_firestore: ^4.10.0
   firebase_auth: ^4.12.0
   get: ^4.6.6

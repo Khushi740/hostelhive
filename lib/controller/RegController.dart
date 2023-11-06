@@ -52,7 +52,7 @@ class RegController extends GetxController{
         toastLength: Toast.LENGTH_SHORT, // Duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG
         gravity: ToastGravity.BOTTOM,    // Position: ToastGravity.TOP, ToastGravity.CENTER
         timeInSecForIosWeb: 1,         // Duration for iOS and web (in seconds)
-        backgroundColor: Colors.orange,   // Background color
+        backgroundColor: Colors.amber,   // Background color
         textColor: Colors.white,       // Text color
         fontSize: 16.0,                // Font size
       );
