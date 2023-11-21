@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get_connect/http/src/_http/_io/_file_decoder_io.dart';
+
 
 class Complaints extends StatefulWidget {
   const Complaints({Key? key}) : super(key: key);
@@ -71,6 +74,7 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
             onChanged: (newvalue) {
               setState(() {
                 hostel = newvalue;
+               // writeToFirestore(hostel);
               });
             },
             items: hostelNumbers.map((hcategory) {
@@ -87,9 +91,10 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
             onChanged: (newRoom) {
               setState(() {
                 room = newRoom;
+                //writeToFirestore('room');
               });
             },
-            items: List.generate(40, (index) {
+            items: List.generate(36, (index) {
               return DropdownMenuItem<int>(
                 value: index + 1,
                 child: Text((index + 1).toString()),
@@ -104,6 +109,7 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
             onChanged: (newBed) {
               setState(() {
                 bed = newBed;
+                //writeToFirestore('bed');
               });
             },
             items: List.generate(4, (index) {
@@ -121,6 +127,7 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
             onChanged: (newvalue) {
               setState(() {
                 category = newvalue;
+                //writeToFirestore(category);
               });
             },
             items: categories.map((ccategory) {
@@ -145,7 +152,10 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
           ),
           SizedBox(height: 16),
           ElevatedButton(
-            onPressed: handleSubmit,
+            onPressed:(){
+               writeToFirestore( );
+               handleSubmit();
+            },
             child: Text("Submit", style: TextStyle(color: Colors.black),),
             style: ElevatedButton.styleFrom(
               primary: Colors.amber,
@@ -157,5 +167,23 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
       //  ),
 
       );
+  }
+  void writeToFirestore() {
+    if (hostel != null && room != null && bed != null && category != null) {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      firestore.collection('complaints').add({
+        'hostel': hostel,
+        'room': room,
+        'bed': bed,
+        'category': category,
+        'timestamp': FieldValue.serverTimestamp(),
+        'description': descriptionController.text,
+      })
+          .then((value) => print("Submitted"))
+          .catchError((error) => print("Failed to add data: $error"));
+    } else {
+      print("Please fill in all the details");
+    }
   }
 }
