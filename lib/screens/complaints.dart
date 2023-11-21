@@ -180,7 +180,7 @@ class _ComplaintsFormState extends State<ComplaintsForm> {
         'timestamp': FieldValue.serverTimestamp(),
         'description': descriptionController.text,
       })
-          .then((value) => print("submitted))
+          .then((value) => print("Submitted"))
           .catchError((error) => print("Failed to add data: $error"));
     } else {
       print("Please fill in all the details");
