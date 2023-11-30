@@ -16,7 +16,7 @@ class _NavBarState extends State<NavBar> {
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   var screens =[
-    notice(),Complaints(),SettingsPage(),
+    NoticeScreen(),Complaints(),SettingsPage(),
   ];
   @override
   Widget build(BuildContext context) {
